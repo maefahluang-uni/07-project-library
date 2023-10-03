@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>th.microservice</groupId>
-	<artifactId>genres-service</artifactId>
+	<artifactId>library-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>	
-	<description>Genres Service</description>
+	<description>Library Service</description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2020.0.3</spring-cloud.version>

@@ -18,12 +18,11 @@
 	</properties>
 	
 	<modules>
-		<module>author-service</module>
-		<module>book-service</module>
+		<module>books-service</module>
 		<module>genres-service</module>
-		<module>member-service</module>
-		<module>publisher-service</module>
+		<module>library-service</module>
 		<module>naming-server</module>
+		<module>members-service</module>
 	</modules>
 	
 	<dependencies>
