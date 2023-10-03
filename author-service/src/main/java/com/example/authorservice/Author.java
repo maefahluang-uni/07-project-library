@@ -1,19 +1,20 @@
-package th.cmu;
+package com.example.authorservice;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+// import javax.persistence.*;
 
-@Entity
+// @Entity
 public class Author {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    // @Id
+    // @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Book> books = new ArrayList<>();
+    // @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval =
+    // true)
+    // private List<Book> books = new ArrayList<>();
 
     public Author() {
     }
@@ -43,12 +44,12 @@ public class Author {
         this.name = name;
     }
 
-    public List<Book> getBooks() {
-        return books;
-    }
+    // public List<Book> getBooks() {
+    // return books;
+    // }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
+    // public void setBooks(List<Book> books) {
+    // this.books = books;
+    // }
 
 }

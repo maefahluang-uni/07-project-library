@@ -1,4 +1,4 @@
-package th.cmu;
+package com.example.authorservice;
 
 import java.util.List;
 import java.util.Optional;

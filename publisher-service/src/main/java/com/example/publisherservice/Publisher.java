@@ -1,17 +1,19 @@
-package th.cmu;
+package com.example.publisherservice;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+// import javax.persistence.*;
 
+// @Entity
 public class Publisher {
     private Long id;
     private String name;
     private String address;
 
-    @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Book> books = new ArrayList<>();
+    // @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL, orphanRemoval =
+    // true)
+    // private List<Book> books = new ArrayList<>();
 
     public Publisher() {
     }

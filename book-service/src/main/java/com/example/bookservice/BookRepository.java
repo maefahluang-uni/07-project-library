@@ -1,4 +1,4 @@
-package th.cmu;
+package com.example.bookservice;
 
 import java.util.List;
 

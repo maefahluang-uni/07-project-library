@@ -1,54 +1,60 @@
-package th.cmu;
+package com.example.bookservice;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+// import javax.annotation.Generated;
+// import javax.persistence.Entity;
+// import javax.persistence.GeneratedValue;
+// import javax.persistence.GenerationType;
+// import javax.persistence.Id;
+// import javax.persistence.Transient;
 
-@Entity
+// @Entity
 public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    // @Id
+    // @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private Author author;
+    // @ManyToOne
+    // @JoinColumn(name = "author_id")
+    // private Author author;
 
     private String genus;
 
     private int publication;
 
-    @ManyToOne
-    @JoinColumn(name = "publisher_id")
-    private Publisher publisher;
+    // @ManyToOne
+    // @JoinColumn(name = "publisher_id")
+    // private Publisher publisher;
 
-    @ManyToMany(mappedBy = "borrowBooks")
-    private List<Member> borrower = new ArrayList<>();
+    // @ManyToMany(mappedBy = "borrowBooks")
+    // private List<Member> borrower = new ArrayList<>();
 
     public Book() {
     }
 
-    public Book(String title, Author author, String genus, int publication) {
-        this.title = title;
-        this.author = author;
-        this.genus = genus;
-        this.publication = publication;
-    }
+    // public Book(String title, Author author, String genus, int publication) {
+    // this.title = title;
+    // this.author = author;
+    // this.genus = genus;
+    // this.publication = publication;
+    // }
 
-    public Book(Long id, String title, Author author, String genus, int publication) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.genus = genus;
-        this.publication = publication;
-    }
+    // public Book(Long id, String title, Author author, String genus, int
+    // publication) {
+    // this.id = id;
+    // this.title = title;
+    // this.author = author;
+    // this.genus = genus;
+    // this.publication = publication;
+    // }
 
-    public void addBorrower(Member member) {
-        borrower.add(member);
-    }
+    // public void addBorrower(Member member) {
+    // borrower.add(member);
+    // }
 
     public Long getId() {
         return id;
@@ -66,13 +72,13 @@ public class Book {
         this.title = title;
     }
 
-    public Author getAuthor() {
-        return author;
-    }
+    // public Author getAuthor() {
+    // return author;
+    // }
 
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
+    // public void setAuthor(Author author) {
+    // this.author = author;
+    // }
 
     public String getGenus() {
         return genus;
@@ -82,13 +88,13 @@ public class Book {
         this.genus = genus;
     }
 
-    public List<Member> getBorrower() {
-        return borrower;
-    }
+    // public List<Member> getBorrower() {
+    // return borrower;
+    // }
 
-    public void setBorrower(List<Member> borrower) {
-        this.borrower = borrower;
-    }
+    // public void setBorrower(List<Member> borrower) {
+    // this.borrower = borrower;
+    // }
 
     public int getPublication() {
         return publication;
