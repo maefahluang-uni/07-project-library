@@ -20,9 +20,9 @@
 	<modules>
 		<module>books-service</module>
 		<module>genres-service</module>
-		<module>library-service</module>
 		<module>naming-server</module>
 		<module>members-service</module>
+		<module>greet-service</module>
 	</modules>
 	
 	<dependencies>
