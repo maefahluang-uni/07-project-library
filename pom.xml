@@ -23,6 +23,7 @@
 		<module>naming-server</module>
 		<module>members-service</module>
 		<module>greet-service</module>
+		<module>library-web-front</module>
 	</modules>
 	
 	<dependencies>

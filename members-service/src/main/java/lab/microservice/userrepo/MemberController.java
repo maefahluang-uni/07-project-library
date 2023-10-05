@@ -1,6 +1,7 @@
 package lab.microservice.userrepo;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -83,6 +85,38 @@ public class MemberController {
 
         // return success message
         return ResponseEntity.ok("Member is updated");
+    }
+
+    @PatchMapping("/members/{id}")
+    public ResponseEntity<String> patchmembers(@PathVariable Long id, @RequestBody Map<String, Object> updates) {
+        // Fetch the existing members by ID
+        Optional<Member> membersOptional = memberRepository.findById(id);
+
+        if (!membersOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("members not found");
+        }
+
+        Member member = membersOptional.get();
+
+        // Apply partial updates from the request body
+        updates.forEach((key, value) -> {
+            switch (key) {
+                case "fname":
+                    member.setFname((String) value);
+                    break;
+                case "lname":
+                    member.setLname((String) value);
+                    break;
+                case "email":
+                    member.setEmail((String) value);
+                    break;
+            }
+        });
+
+        // Save the updated members
+        memberRepository.save(member);
+
+        return ResponseEntity.ok("members is updated");
     }
 
     // delete member by id

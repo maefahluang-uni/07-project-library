@@ -1,6 +1,7 @@
 package lab.microservice.userrepo.book;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.Id;
@@ -10,11 +11,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import lab.microservice.userrepo.author.Author;
+import lab.microservice.userrepo.publisher.Publisher;
 
 @RestController
 public class BookController {
@@ -82,6 +87,64 @@ public class BookController {
         bookRepository.save(book);
 
         // return success message
+        return ResponseEntity.ok("Book is updated");
+    }
+
+    @PatchMapping("/books/{id}")
+    public ResponseEntity<String> patchBook(@PathVariable Long id, @RequestBody Map<String, Object> updates) {
+        // Fetch the existing book by ID
+        Optional<Book> bookOptional = bookRepository.findById(id);
+
+        if (!bookOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found");
+        }
+
+        Book book = bookOptional.get();
+
+        // Apply partial updates from the request body
+        updates.forEach((key, value) -> {
+            switch (key) {
+                case "title":
+                    book.setTitle((String) value);
+                    break;
+                case "genresID":
+                    book.setGenresID((String) value);
+                    break;
+                case "publication":
+                    book.setPublication((int) value);
+                    break;
+                case "author":
+                    Author author = book.getAuthor();
+                    if (value instanceof Map) {
+                        Map<String, Object> authorUpdates = (Map<String, Object>) value;
+                        authorUpdates.forEach((authorKey, authorValue) -> {
+                            switch (authorKey) {
+                                case "name":
+                                    author.setName((String) authorValue);
+                                    break;
+                            }
+                        });
+                    }
+                    break;
+                case "publisher":
+                    Publisher publisher = book.getPublisher();
+                    if (value instanceof Map) {
+                        Map<String, Object> publisherUpdates = (Map<String, Object>) value;
+                        publisherUpdates.forEach((publisherKey, publisherValue) -> {
+                            switch (publisherKey) {
+                                case "name":
+                                    publisher.setName((String) publisherValue);
+                                    break;
+                            }
+                        });
+                    }
+                    break;
+            }
+        });
+
+        // Save the updated book
+        bookRepository.save(book);
+
         return ResponseEntity.ok("Book is updated");
     }
 

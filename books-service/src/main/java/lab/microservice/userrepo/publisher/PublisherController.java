@@ -1,6 +1,7 @@
 package lab.microservice.userrepo.publisher;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,32 @@ public class PublisherController {
         publisherRepository.save(publisher);
 
         // return success message
+        return ResponseEntity.ok("Publisher is updated");
+    }
+
+    @PatchMapping("/publishers/{id}")
+    public ResponseEntity<String> patchPublisher(@PathVariable Long id, @RequestBody Map<String, Object> updates) {
+        // Fetch the existing publisher by ID
+        Optional<Publisher> publisherOptional = publisherRepository.findById(id);
+
+        if (!publisherOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Publisher not found");
+        }
+
+        Publisher publisher = publisherOptional.get();
+
+        // Apply partial updates from the request body
+        updates.forEach((key, value) -> {
+            switch (key) {
+                case "name":
+                    publisher.setName((String) value);
+                    break;
+            }
+        });
+
+        // Save the updated Publisher
+        publisherRepository.save(publisher);
+
         return ResponseEntity.ok("Publisher is updated");
     }
 

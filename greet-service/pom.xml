@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>th.microservice</groupId>
-	<artifactId>greet-service</artifactId>
+	<artifactId>book-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>	
 	<description>Blank Service</description>
 	<properties>

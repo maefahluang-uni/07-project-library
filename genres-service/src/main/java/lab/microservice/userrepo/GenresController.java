@@ -1,6 +1,7 @@
 package lab.microservice.userrepo;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -63,6 +65,32 @@ public class GenresController {
         genresRepository.save(genres);
 
         // return success message
+        return ResponseEntity.ok("Genres is updated");
+    }
+
+    @PatchMapping("/genres/{id}")
+    public ResponseEntity<String> patchGenres(@PathVariable Long id, @RequestBody Map<String, Object> updates) {
+        // Fetch the existing Genres by ID
+        Optional<Genres> genresOptional = genresRepository.findById(id);
+
+        if (!genresOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Genres not found");
+        }
+
+        Genres genres = genresOptional.get();
+
+        // Apply partial updates from the request body
+        updates.forEach((key, value) -> {
+            switch (key) {
+                case "name":
+                    genres.setName((String) value);
+                    break;
+            }
+        });
+
+        // Save the updated Genres
+        genresRepository.save(genres);
+
         return ResponseEntity.ok("Genres is updated");
     }
 

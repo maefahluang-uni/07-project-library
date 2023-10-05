@@ -2,6 +2,7 @@ package lab.microservice.userrepo.author;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -81,6 +82,32 @@ public class AuthorController {
         authorRepository.save(author);
 
         // return success message
+        return ResponseEntity.ok("Author is updated");
+    }
+
+    @PatchMapping("/authors/{id}")
+    public ResponseEntity<String> patchAuthor(@PathVariable Long id, @RequestBody Map<String, Object> updates) {
+        // Fetch the existing author by ID
+        Optional<Author> authorOptional = authorRepository.findById(id);
+
+        if (!authorOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Author not found");
+        }
+
+        Author author = authorOptional.get();
+
+        // Apply partial updates from the request body
+        updates.forEach((key, value) -> {
+            switch (key) {
+                case "name":
+                    author.setName((String) value);
+                    break;
+            }
+        });
+
+        // Save the updated author
+        authorRepository.save(author);
+
         return ResponseEntity.ok("Author is updated");
     }
 
