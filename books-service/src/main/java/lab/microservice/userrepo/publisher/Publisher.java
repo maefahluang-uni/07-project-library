@@ -13,6 +13,7 @@ public class Publisher {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    private String country;
 
     @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Book> books = new ArrayList<>();
@@ -20,13 +21,15 @@ public class Publisher {
     public Publisher() {
     }
 
-    public Publisher(String name) {
+    public Publisher(String name, String country) {
         this.name = name;
+        this.country = country;
     }
 
-    public Publisher(Long id, String name) {
+    public Publisher(Long id, String name, String country) {
         this.id = id;
         this.name = name;
+        this.country = country;
     }
 
     public Long getId() {
@@ -45,6 +48,14 @@ public class Publisher {
         this.name = name;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public List<Book> getBooks() {
         return books;
     }
@@ -52,5 +63,4 @@ public class Publisher {
     public void setBooks(List<Book> books) {
         this.books = books;
     }
-
 }

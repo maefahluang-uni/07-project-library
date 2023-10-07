@@ -101,6 +101,9 @@ public class PublisherController {
                 case "name":
                     publisher.setName((String) value);
                     break;
+                case "country":
+                    publisher.setCountry((String) value);
+                    break;
             }
         });
 

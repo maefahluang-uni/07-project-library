@@ -135,6 +135,9 @@ public class BookController {
                                 case "name":
                                     publisher.setName((String) publisherValue);
                                     break;
+                                case "country":
+                                    publisher.setCountry((String) value);
+                                    break;
                             }
                         });
                     }
