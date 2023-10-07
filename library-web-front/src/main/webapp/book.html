@@ -1,87 +1,85 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  </head>
-  <body>
-    <h2>Book</h2>
-    <div class="content">
-      <div class="left">
-        <form id="createAuthorForm">
-          <label for="authorName">Name:</label>
-          <input
-            type="text"
-            id="authorName"
-            name="authorName"
-            required
-          /><br /><br />
-          <button type="submit">Create Author</button>
-        </form>
-      </div>
-      <div class="right">
-        <h3>List Authors</h3>
-        <button id="reloadButton">Reload</button>
-        <div id="authorList"></div>
-      </div>
+
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+  <h2>Books</h2>
+  <div class="content">
+    <div class="left">
+      <form id="createAuthorForm">
+        <label for="authorName">Name:</label>
+        <input type="text" id="authorName" name="authorName" required /><br /><br />
+        <button type="submit">Create Author</button>
+      </form>
     </div>
+    <div class="right">
+      <h3>List Authors</h3>
+      <button id="reloadButton">Reload</button>
+      <div id="authorList"></div>
+    </div>
+  </div>
 
-    <script>
-      $(document).ready(function () {
-        // Load authors function
-        function loadAuthors() {
-          $("#authorList").html(""); // Clear author list
-          $.ajax({
-            type: "GET",
-            url: "http://localhost:8083/authors",
-            success: function (response) {
-              console.log("Authors:", response);
-              response.forEach(function (author) {
-                $("#authorList").append(
-                  "<p>Author Name: " + author.name + "</p>"
-                );
-              });
-            },
-            error: function (error) {
-              console.error("Error loading authors:", error);
-            },
-          });
-        }
+  <script>
+    $(document).ready(function () {
+      // Load authors function
+      function loadAuthors() {
+        $("#authorList").html(""); // Clear author list
+        $.ajax({
+          method: "GET",
+          url: 'http://localhost:8083/authors',
+          success: function (response) {
+            console.log("Authors:", response);
+            response.forEach(function (author) {
+              $("#authorList").append(
+                "<p>Author Name: " + author.name + "</p>"
+              );
+            });
+          },
+          error: function (error) {
+            console.error("Error loading authors:", error);
+          },
+        });
+      }
 
-        // Load authors on page load
+      // Load authors on page load
+      loadAuthors();
+
+      // Reload button click event
+      $("#reloadButton").click(function () {
         loadAuthors();
+      });
 
-        // Reload button click event
-        $("#reloadButton").click(function () {
-          loadAuthors();
+      // Handle form submission
+      $("#createAuthorForm").submit(function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Prepare author data as JSON
+        var authorData = {
+          name: $("#authorName").val(),
+        };
+
+        $.ajax({
+          method: "POST",
+          url: 'http://localhost:8083/authors',
+          data: JSON.stringify(authorData),
+          contentType: "application/json",
+          success: function (response) {
+            console.log("Author created successfully:", response);
+            loadAuthors();
+          },
+          error: function (error) {
+            console.error("Error creating author:", error);
+          },
         });
 
-        // Handle form submission
-        $("#createAuthorForm").submit(function (event) {
-          event.preventDefault(); // Prevent default form submission
+        // Reset form field
+        $("#authorName").val("");
+      }); // end submit function
+    });
+  </script>
+</body>
 
-          // Prepare author data as JSON
-          var authorData = {
-            name: $("#authorName").val(),
-          };
-
-          $.ajax({
-            type: "POST",
-            url: "http://localhost:8083/authors",
-            data: JSON.stringify(authorData),
-            contentType: "application/json",
-            success: function (response) {
-              console.log("Author created successfully:", response);
-              loadAuthors();
-            },
-            error: function (error) {
-              console.error("Error creating author:", error);
-            },
-          });
-
-          // Reset form field
-          $("#authorName").val("");
-        }); // end submit function
-      });
-    </script>
-  </body>
 </html>
