@@ -1,5 +1,13 @@
 # Microservices with Spring Boot and Eureka
 
+## Member
+1.นางสาวญาดา กรึกโคกสูง 652110274
+2.นางสาวณัฐฌญาภรณ์ จันทิมา 652110278
+3.นายศิรัณย์ สุนันทศิลป์ 652110307
+
+## Clip VDO
+https://youtu.be/hrSeVryT9S0
+
 This repository contains a set of Java Spring Boot microservices that work together in a microservices architecture. These microservices include:
 
 - [naming-server](#naming-server)
